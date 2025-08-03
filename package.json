@@ -1,0 +1,26 @@
+{
+    "name": "jsonarch",
+    "version": "0.0.1",
+    "preview": true,
+    "description": "Jsonarch is JSON to JSON Processor.",
+    "main": "library/index.js",
+    "types": "library/index.d.ts",
+    "bin": "command/index.js",
+    "bugs": {
+        "url": "https://github.com/wraith13/jsonarch/issues"
+    },
+    "homepage": "https://github.com/wraith13/jsonarch",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wraith13/jsonarch.git"
+    },
+    "scripts": {
+        "generate type": "node ./evil-type.ts ./resource/template.json"
+    },
+    "author": "wraith13",
+    "license": "BSL-1.0",
+    "devDependencies": {
+        "@types/node": "^18.11.18",
+        "typescript": "^4.9.4"
+    }
+}
