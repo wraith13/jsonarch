@@ -1,0 +1,556 @@
+{
+    "$id": "https://raw.githubusercontent.com/wraith13/jsonarch/master/generated/schema/template.json#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/Type.Root",
+    "definitions": {
+        "Type.JsonableValue": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "boolean"
+                },
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "Type.JsonbleObjectBody": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/Type.Jsonable"
+            }
+        },
+        "Type.JsonbleObjectConstraint": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false,
+            "not": {
+                "required": [
+                    "$arch"
+                ]
+            }
+        },
+        "Type.JsonableObject": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Type.JsonbleObjectBody"
+                },
+                {
+                    "$ref": "#/definitions/Type.JsonbleObjectConstraint"
+                }
+            ]
+        },
+        "Type.Jsonable": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.JsonableValue"
+                },
+                {
+                    "$ref": "#/definitions/Type.JsonableObject"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type.Jsonable"
+                    }
+                }
+            ]
+        },
+        "Type.RawJsonable": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.JsonableValue"
+                },
+                {
+                    "$ref": "#/definitions/Type.JsonbleObjectBody"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type.RawJsonable"
+                    }
+                }
+            ]
+        },
+        "Type.AlphaJsonarch": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "$arch"
+            ],
+            "additionalProperties": false
+        },
+        "Type.SystemType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "enum": [
+                        "never",
+                        "unknown",
+                        "any",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "$arch",
+                "type"
+            ],
+            "additionalProperties": false
+        },
+        "Type.NullType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "null"
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type"
+            ],
+            "additionalProperties": false
+        },
+        "Type.BooleanType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "boolean"
+                },
+                "enum": {
+                    "type": "array",
+                    "items": {
+                        "type": "boolean"
+                    }
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type"
+            ],
+            "additionalProperties": false
+        },
+        "Type.NumberType": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.RegularNumberType"
+                },
+                {
+                    "$ref": "#/definitions/Type.EnumNumberType"
+                }
+            ]
+        },
+        "Type.RegularNumberType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "number"
+                },
+                "integerOnly": {
+                    "type": "boolean"
+                },
+                "minValue": {
+                    "type": "number"
+                },
+                "maxValue": {
+                    "type": "number"
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type"
+            ],
+            "additionalProperties": false
+        },
+        "Type.EnumNumberType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "number"
+                },
+                "enum": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "enum"
+            ],
+            "additionalProperties": false
+        },
+        "Type.RegularStringType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "string"
+                },
+                "minLength": {
+                    "type": "number"
+                },
+                "maxLength": {
+                    "type": "number"
+                },
+                "pattern": {
+                    "type": "string"
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type"
+            ],
+            "additionalProperties": false
+        },
+        "Type.EnumStringType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "string"
+                },
+                "enum": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "enum"
+            ],
+            "additionalProperties": false
+        },
+        "Type.StringType": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.RegularStringType"
+                },
+                {
+                    "$ref": "#/definitions/Type.EnumStringType"
+                }
+            ]
+        },
+        "Type.ValueType": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.NullType"
+                },
+                {
+                    "$ref": "#/definitions/Type.BooleanType"
+                },
+                {
+                    "$ref": "#/definitions/Type.NumberType"
+                },
+                {
+                    "$ref": "#/definitions/Type.StringType"
+                }
+            ]
+        },
+        "Type.ArrayType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "array"
+                },
+                "itemType": {
+                    "$ref": "#/definitions/Type.Type"
+                },
+                "optional": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "itemType"
+            ],
+            "additionalProperties": false
+        },
+        "Type.TupleType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "tuple"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type.Type"
+                    }
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "list"
+            ],
+            "additionalProperties": false
+        },
+        "Type.ObjectType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "tuple"
+                },
+                "member": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Type.Type"
+                    }
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "member"
+            ],
+            "additionalProperties": false
+        },
+        "Type.OrCompositeType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "or"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type.Type"
+                    }
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "list"
+            ],
+            "additionalProperties": false
+        },
+        "Type.AndCompositeType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "and"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type.Type"
+                    }
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "list"
+            ],
+            "additionalProperties": false
+        },
+        "Type.CompositeType": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.OrCompositeType"
+                },
+                {
+                    "$ref": "#/definitions/Type.AndCompositeType"
+                }
+            ]
+        },
+        "Type.TemplateType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "template"
+                },
+                "parameter": {
+                    "$ref": "#/definitions/Type.Type"
+                },
+                "return": {
+                    "$ref": "#/definitions/Type.Type"
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "parameter",
+                "return"
+            ],
+            "additionalProperties": false
+        },
+        "Type.MetaType": {
+            "type": "object",
+            "properties": {
+                "$arch": {
+                    "const": "type"
+                },
+                "type": {
+                    "const": "meta"
+                },
+                "parameter": {
+                    "$ref": "#/definitions/Type.Type"
+                },
+                "return": {
+                    "$ref": "#/definitions/Type.Type"
+                }
+            },
+            "required": [
+                "$arch",
+                "type",
+                "parameter",
+                "return"
+            ],
+            "additionalProperties": false
+        },
+        "Type.Type": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.SystemType"
+                },
+                {
+                    "$ref": "#/definitions/Type.ValueType"
+                },
+                {
+                    "$ref": "#/definitions/Type.ArrayType"
+                },
+                {
+                    "$ref": "#/definitions/Type.TupleType"
+                },
+                {
+                    "$ref": "#/definitions/Type.ObjectType"
+                },
+                {
+                    "$ref": "#/definitions/Type.CompositeType"
+                },
+                {
+                    "$ref": "#/definitions/Type.TemplateType"
+                },
+                {
+                    "$ref": "#/definitions/Type.MetaType"
+                }
+            ]
+        },
+        "Type.Arch": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/Type.PathValue"
+                },
+                {
+                    "$ref": "#/definitions/Type.JsonValue"
+                },
+                {
+                    "$ref": "#/definitions/Type.CallValue"
+                },
+                {
+                    "$ref": "#/definitions/Type.Type"
+                }
+            ]
+        },
+        "Type.RootConstraint": {
+            "type": "object",
+            "properties": {
+                "$schema": {
+                    "oneOf": [
+                        {
+                            "const": "https://raw.githubusercontent.com/wraith13/evil-type.ts/master/generated/schema/type.json#"
+                        },
+                        {
+                            "type": "never"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "$schema"
+            ],
+            "additionalProperties": false
+        },
+        "Type.Root": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Type.RootConstraint"
+                },
+                {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Type.Arch"
+                        },
+                        {
+                            "$ref": "#/definitions/Type.Jsonable"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

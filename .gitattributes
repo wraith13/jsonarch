@@ -1,0 +1,4 @@
+command/*.* linguist-generated=true
+library/*.* linguist-generated=true
+**/*.arch.json linguist-language=Jsonarch
+**/*.ts linguist-language=TypeScript

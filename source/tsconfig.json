@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "moduleResolution": "Node",
+        "module": "CommonJS",
+        "declaration": true,
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom",
+            "scripthost"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "stripInternal": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": false,
+        "noEmitOnError": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "sourceRoot": "./",
+        "outDir": ".."
+    },
+    "include": [
+        "./libarary/*.ts",
+        "./libarary/*.json",
+        "./command/*.ts",
+        "./command/*.json"
+    ],
+    "exclude": [
+    ]
+}

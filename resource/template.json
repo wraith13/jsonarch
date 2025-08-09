@@ -1,0 +1,544 @@
+{
+    "$schema": "https://raw.githubusercontent.com/wraith13/evil-type.ts/master/generated/schema/type.json#",
+    "imports": [
+        {
+            "import": "{ EvilType }",
+            "from": "../evil-type.ts/common/evil-type"
+        }
+    ],
+    "defines": {
+        "export": {
+            "type": "code",
+            "export": true,
+            "tokens": [
+                "{",
+                "EvilType",
+                "}"
+            ]
+        },
+        "Type": {
+            "type": "namespace",
+            "members": {
+                "JsonableValue": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "JsonbleObjectBody": {
+                    "type": "dictionary",
+                    "valueType": {
+                        "$ref": "Type.Jsonable"
+                    }
+                },
+                "JsonbleObjectConstraint": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "type": "never"
+                        }
+                    }
+                },
+                "JsonableObject": {
+                    "type": "type",
+                    "define": {
+                        "type": "and",
+                        "types": [
+                            {
+                                "$ref": "Type.JsonbleObjectBody"
+                            },
+                            {
+                                "$ref": "Type.JsonbleObjectConstraint"
+                            }
+                        ]
+                    }
+                },
+                "Jsonable": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.JsonableValue"
+                            },
+                            {
+                                "$ref": "Type.JsonableObject"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "Type.Jsonable"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "RawJsonable": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.JsonableValue"
+                            },
+                            {
+                                "$ref": "Type.JsonbleObjectBody"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "Type.RawJsonable"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "AlphaJsonarch": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "SystemType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "type": "enum-type",
+                            "members": [
+                                "never",
+                                "unknown",
+                                "any",
+                                "null"
+                            ]
+                        }
+                    }
+                },
+                "NullType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "null"
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "BooleanType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "boolean"
+                        },
+                        "enum?": {
+                            "type": "array",
+                            "items": {
+                                "type": "boolean"
+                            }
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "NumberType": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.RegularNumberType"
+                            },
+                            {
+                                "$ref": "Type.EnumNumberType"
+                            }
+                        ]
+                    }
+                },
+                "RegularNumberType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "number"
+                        },
+                        "integerOnly?": {
+                            "type": "boolean"
+                        },
+                        "minValue?": {
+                            "type": "number"
+                        },
+                        "maxValue?": {
+                            "type": "number"
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "EnumNumberType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "number"
+                        },
+                        "enum": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "RegularStringType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "string"
+                        },
+                        "minLength?": {
+                            "type": "number"
+                        },
+                        "maxLength?": {
+                            "type": "number"
+                        },
+                        "pattern?": {
+                            "type": "string"
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "EnumStringType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "string"
+                        },
+                        "enum": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "StringType": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.RegularStringType"
+                            },
+                            {
+                                "$ref": "Type.EnumStringType"
+                            }
+                        ]
+                    }
+                },
+                "ValueType": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.NullType"
+                            },
+                            {
+                                "$ref": "Type.BooleanType"
+                            },
+                            {
+                                "$ref": "Type.NumberType"
+                            },
+                            {
+                                "$ref": "Type.StringType"
+                            }
+                        ]
+                    }
+                },
+                "ArrayType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "array"
+                        },
+                        "itemType": {
+                            "$ref": "Type.Type"
+                        },
+                        "optional?": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "TupleType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "tuple"
+                        },
+                        "list": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "Type.Type"
+                            }
+                        }
+                    }
+                },
+                "ObjectType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "tuple"
+                        },
+                        "member": {
+                            "type": "dictionary",
+                            "valueType": {
+                                "$ref": "Type.Type"
+                            }
+                        }
+                    }
+                },
+                "OrCompositeType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "or"
+                        },
+                        "list": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "Type.Type"
+                            }
+                        }
+                    }
+                },
+                "AndCompositeType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "and"
+                        },
+                        "list": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "Type.Type"
+                            }
+                        }
+                    }
+                },
+                "CompositeType": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.OrCompositeType"
+                            },
+                            {
+                                "$ref": "Type.AndCompositeType"
+                            }
+                        ]
+                    }
+                },
+                "TemplateType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "template"
+                        },
+                        "parameter": {
+                            "$ref": "Type.Type"
+                        },
+                        "return": {
+                            "$ref": "Type.Type"
+                        }
+                    }
+                },
+                "MetaType": {
+                    "type": "interface",
+                    "members": {
+                        "$arch": {
+                            "const": "type"
+                        },
+                        "type": {
+                            "const": "meta"
+                        },
+                        "parameter": {
+                            "$ref": "Type.Type"
+                        },
+                        "return": {
+                            "$ref": "Type.Type"
+                        }
+                    }
+                },
+                "Type": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.SystemType"
+                            },
+                            {
+                                "$ref": "Type.ValueType"
+                            },
+                            {
+                                "$ref": "Type.ArrayType"
+                            },
+                            {
+                                "$ref": "Type.TupleType"
+                            },
+                            {
+                                "$ref": "Type.ObjectType"
+                            },
+                            {
+                                "$ref": "Type.CompositeType"
+                            },
+                            {
+                                "$ref": "Type.TemplateType"
+                            },
+                            {
+                                "$ref": "Type.MetaType"
+                            }
+                        ]
+                    }
+                },
+                "Arch": {
+                    "type": "type",
+                    "define": {
+                        "type": "or",
+                        "types": [
+                            {
+                                "$ref": "Type.PathValue"
+                            },
+                            {
+                                "$ref": "Type.JsonValue"
+                            },
+                            {
+                                "$ref": "Type.CallValue"
+                            },
+                            {
+                                "$ref": "Type.Type"
+                            }
+                        ]
+                    }
+                },
+                "RootConstraint": {
+                    "type": "interface",
+                    "members": {
+                        "$schema": {
+                            "type": "or",
+                            "types": [
+                                {
+                                    "const": "https://raw.githubusercontent.com/wraith13/evil-type.ts/master/generated/schema/type.json#"
+                                },
+                                {
+                                    "type": "never"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Root": {
+                    "type": "type",
+                    "define": {
+                        "type": "and",
+                        "types": [
+                            {
+                                "$ref": "Type.RootConstraint"
+                            },
+                            {
+                                "type": "or",
+                                "types": [
+                                    {
+                                        "$ref": "Type.Arch"
+                                    },
+                                    {
+                                        "$ref": "Type.Jsonable"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "outputFile": "../generated/type.ts",
+        "indentUnit": 4,
+        "indentStyle": "allman",
+        "validatorOption": "full",
+        "default": {
+            "export": true,
+            "additionalProperties": false
+        },
+        "schema": {
+            "outputFile": "../generated/schema.json",
+            "$id": "https://raw.githubusercontent.com/wraith13/jsonarch/master/generated/schema/template.json#",
+            "$ref": "Type.Root"
+        }
+    }
+}
